@@ -1,0 +1,23 @@
+<!DOCTYPE HTML>
+<html ng-app="store">
+	<head>
+		<link href="bootstrap.min.css" rel="stylesheet">
+	</head>
+	<body>
+		<!-- Interaccion con version reducida del interprete de JS
+			<p>{{"Hello" + " You"}}</p>
+			<p>I am {{4 + 6}}</p>
+		-->
+
+		<div ng-controller="StoreController as store">
+			<!-- Consulta a variables de app.js -->
+			<h1> Product Name: {{store.product.name}} </h1>
+			<h2> Product Price: ${{store.product.price}} </h2>
+			<p> Product Description: {{store.product.description}} </p>
+			<img src="{{store.product.img}}">
+		</div>
+		<!-- Consulta invalida, fuera del ambiente -->
+		{{store.product.description}}
+		<script type="text/javascript" src="angular.min.js"></script>
+		<script type="text/javascript" src="app.js"></script>
+	</body>
