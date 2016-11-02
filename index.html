@@ -9,14 +9,73 @@
 			<p>I am {{4 + 6}}</p>
 		-->
 
+		<!-- Consulta de una variable de app accesible en el scope definido por el controlador store
+			Product Name: {{store.product.name}}
+		-->
+
+		<!-- Consulta de una variable dentro de un arreglo de app en el scope definido por el controlador store
+			<h1> Product Name: {{store.product[0].name}} </h1>
+		-->
+
+		<!-- Carga de una imagen sin ng-src
+			<p> <img src="{{product.img}}" style="height: 250px;"> </p>
+		-->
+
+		<!-- Define el controlador store como StoreController y crea el scope relacionado al mismo -->
 		<div ng-controller="StoreController as store">
-			<!-- Consulta a variables de app.js -->
-			<h1> Product Name: {{store.product.name}} </h1>
-			<h2> Product Price: ${{store.product.price}} </h2>
-			<p> Product Description: {{store.product.description}} </p>
-			<img src="{{store.product.img}}">
+			<div class="list-group">
+				<!-- Carga de un contenido segun el valor de verdad de ng-show negado -->
+				<!-- ng-repeat para cargar contenido de arreglo -->
+				<!-- Filtro orderBy para ordenar el arreglo segun un atributo ascendente o descendente (con un menos antes del atributo) -->
+				<div class="list-group-item" ng-show="!store.product.soldOut" ng-repeat="product in store.products | orderBy:'-price'">
+					<!-- Consulta de variables de app accesibles por el scope -->
+					<h1> Product Name: Pokemon {{ product.name }} </h1>
+					<!-- Filtro currency para factor moneda -->
+					<h2> Product Price: {{ product.price | currency }} </h2>
+					<p> Product Description: {{ product.description }} </p>
+					<!-- Carga de una url de una imagen en app accesible por el scope -->
+					<p> <img ng-src="{{product.images[0].thumb}}" style="height: 250px;"> </p>
+					<!-- Carga de un contenido segun el valor de verdad de ng-show -->
+					<p> <button class="button" ng-show="store.product.canPurchase"> Add to cart </button> </p>
+					<!-- ng-init inicializacion de una variable desde el html
+						<section ng-init="tab = 1">
+					-->
+					<section ng-controller="PanelController as panel">
+						<!-- Impresion de la variable tab en html
+							{{ tab }}
+						-->
+						<ul class="nav nav-pills">
+							<!-- ng-class para asignar una clase de un elemento dinamicamente -->
+							<li ng-class="{ active: panel.tab === 1} ">
+							<!-- ng-click directiva para ejecutar una expresion que cambia el valor de la variable tab tras un click (ng-click="tab = 1") -->
+								<a href ng-click="panel.selectTab(1)"> Description</a>
+							</li>
+							<li ng-class="{ active: panel.tab === 2} ">
+								<a href ng-click="panel.selectTab(1)""> Description</a>
+							</li>
+							<li ng-class="{ active: panel.tab === 3} ">
+								<a href ng-click="panel.selectTab(1)""> Description</a>
+							</li>
+						</ul>
+						<div class="panel" ng-show="panel.tab === 1">
+							<h4>Description</h4>
+							<p> {{ product.description }} </p>
+						</div>
+						<div class="panel" ng-show="panel.tab === 2">
+							<h4>Specifications</h4>
+							<p> Not yet </p>
+						</div>
+						<div class="panel" ng-show="panel.tab === 3">
+							<h4>Reviews</h4>
+							<p> Not yet </p>
+						</div>
+					</section>
+					
+				</div>
+			</div>
+			
 		</div>
-		<!-- Consulta invalida, fuera del ambiente -->
+		<!-- Consulta invalida, fuera de variable fuera del scope -->
 		{{store.product.description}}
 		<script type="text/javascript" src="angular.min.js"></script>
 		<script type="text/javascript" src="app.js"></script>
