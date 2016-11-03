@@ -7,6 +7,21 @@
 	app.controller('StoreController', function(){
 		this.product = gem;
 		this.products = gems;
+
+
+		this.order = "";
+		this.reverse = false;
+		this.orderBy = function(filter){
+			if(this.order === filter){
+				this.order = "-".concat(filter);
+			}else{
+				this.order = filter;
+			}
+		}
+
+		this.orderreverse = function(){
+			this.reverse = !this.reverse;
+		}
 	});
 
 	app.controller("PanelController", function(){
@@ -15,6 +30,15 @@
 		this.selectTab = function(setTab){
 			this.tab = setTab;
 		}
+	});
+
+	app.controller("ReviewController", function(){
+		this.review = {};
+
+		this.addReview = function(product){
+			product.reviews.push(this.review);
+			this.review = {};
+		};
 	});
 
 	//Variables .. Variable unica
@@ -40,7 +64,14 @@
 						full: "http://k42.kn3.net/5213251AE.png",
 						thumb: "http://images3.wikia.nocookie.net/__cb20091003182446/es.pokemon/images/a/a4/Fuego_rojo_cover.jpg"
 					}
-				]
+				],
+			reviews: [
+				{
+					stars: 5,
+					body: "Una chimba",
+					author: "Anonimause"
+				}
+			]
 		},
 		{
 			name: 'Hoja verde',
@@ -53,7 +84,14 @@
 						full: "https://i.ytimg.com/vi/ZQ_Sa_82z_U/maxresdefault.jpg",
 						thumb: "http://vignette1.wikia.nocookie.net/es.pokemon/images/3/31/Car%C3%A1tula_de_Verde_Hoja.png/revision/latest?cb=20140922113421"
 					}
-				]
+				],
+			reviews: [
+				{
+					stars: 5,
+					body: "Una chimba",
+					author: "Anonimause"
+				}
+			]
 		},
 		{
 			name: 'Ruby',
@@ -66,7 +104,14 @@
 						full: "http://3.bp.blogspot.com/-2evaJoF_Zyg/VmDgBoVaXDI/AAAAAAAAALA/FcwNIWwcN8I/s1600/pokemon_advance_profilelarge.jpg",
 						thumb: "http://vignette2.wikia.nocookie.net/es.pokemon/images/0/03/Car%C3%A1tula_de_Rub%C3%AD.png/revision/latest?cb=20110508145005"
 					}
-				]
+				],
+			reviews: [
+				{
+					stars: 5,
+					body: "Una chimba",
+					author: "Anonimause"
+				}
+			]
 		},
 		{
 			name: 'Zafiro',
@@ -79,7 +124,14 @@
 						full: "http://images.teinteresa.es/players/Pokemon-Rubi-Omega-Zafiro-Alfa_TINIMA20140611_0472_1.jpg",
 						thumb: "http://vignette3.wikia.nocookie.net/es.pokemon/images/d/d3/Car%C3%A1tula_de_Zafiro.png/revision/latest?cb=20110508145255"
 					}
-				]
+				],
+			reviews: [
+				{
+					stars: 5,
+					body: "Una chimba",
+					author: "Anonimause"
+				}
+			]
 		},
 		{
 			name: 'Amarillo',
@@ -92,7 +144,14 @@
 						full: "http://www.clasicosbasicos.org/screenshots/rol/pokemon-amarillo/02.jpg",
 						thumb: "http://vignette2.wikia.nocookie.net/es.pokemon/images/9/95/Pok%C3%A9mon_Amarillo.png/revision/latest?cb=20160715100157"
 					}
-				]
+				],
+			reviews: [
+				{
+					stars: 5,
+					body: "Una chimba",
+					author: "Anonimause"
+				}
+			]
 		}
 	];
 

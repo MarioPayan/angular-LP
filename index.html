@@ -2,6 +2,7 @@
 <html ng-app="store">
 	<head>
 		<link href="bootstrap.min.css" rel="stylesheet">
+		<link href="style.css" rel="stylesheet">
 	</head>
 	<body>
 		<!-- Interaccion con version reducida del interprete de JS
@@ -26,8 +27,24 @@
 			<div class="list-group">
 				<!-- Carga de un contenido segun el valor de verdad de ng-show negado -->
 				<!-- ng-repeat para cargar contenido de arreglo -->
+				
+
+				<button class="button" ng-click="store.orderBy('price')"> Order by price </button>
+				order {{ store.order }}
+
+				<select ng-model="orderby" ng-change="store.orderBy(orderby)">
+					<option selected value="price">price</option>
+					<option value="name">name</option>
+				</select>
+
+				<select ng-model="orderreverse" ng-change="store.orderreverse(orderreverse)">
+					<option value="true"> Ascendente </option>
+					<option value="false" > Descendente </option>
+				</select>
+				{{ orderby }}
+
 				<!-- Filtro orderBy para ordenar el arreglo segun un atributo ascendente o descendente (con un menos antes del atributo) -->
-				<div class="list-group-item" ng-show="!store.product.soldOut" ng-repeat="product in store.products | orderBy:'-price'">
+				<div class="list-group-item" ng-show="!store.product.soldOut" ng-repeat="product in store.products | orderBy:store.order:store.reverse">
 					<!-- Consulta de variables de app accesibles por el scope -->
 					<h1> Product Name: Pokemon {{ product.name }} </h1>
 					<!-- Filtro currency para factor moneda -->
@@ -48,13 +65,13 @@
 							<!-- ng-class para asignar una clase de un elemento dinamicamente -->
 							<li ng-class="{ active: panel.tab === 1} ">
 							<!-- ng-click directiva para ejecutar una expresion que cambia el valor de la variable tab tras un click (ng-click="tab = 1") -->
-								<a href ng-click="panel.selectTab(1)"> Description</a>
+								<a href ng-click="panel.selectTab(1)"> Description </a>
 							</li>
 							<li ng-class="{ active: panel.tab === 2} ">
-								<a href ng-click="panel.selectTab(2)""> Description</a>
+								<a href ng-click="panel.selectTab(2)""> Specifications </a>
 							</li>
 							<li ng-class="{ active: panel.tab === 3} ">
-								<a href ng-click="panel.selectTab(3)""> Description</a>
+								<a href ng-click="panel.selectTab(3)""> Reviews </a>
 							</li>
 						</ul>
 						<div class="panel" ng-show="panel.tab === 1">
@@ -67,7 +84,30 @@
 						</div>
 						<div class="panel" ng-show="panel.tab === 3">
 							<h4>Reviews</h4>
-							<p> Not yet </p>
+							<blockquote ng-repeat="review in product.reviews">
+								<b> Stars: {{review.stars}}</b>
+								<p> {{review.body}}</p>
+								<p> - {{review.author}}</p>
+							</blockquote>
+							<form name="reviewForm" ng-controller="ReviewController as reviewCtrl" ng-submit="reviewForm.$valid && reviewCtrl.addReview(product)" novalidate>
+								<blockquote>
+									<b> Stars: {{reviewCtrl.review.stars}}</b>
+									<p> {{reviewCtrl.review.body}}</p>
+									<p> - {{reviewCtrl.review.author}}</p>
+								</blockquote>
+								<select class="form-control" ng-model="reviewCtrl.review.stars" required>
+									<option value="1"> 1 Star </option>
+									<option value="2"> 2 Stars </option>
+									<option value="3"> 3 Stars </option>
+									<option value="4"> 4 Stars </option>
+									<option value="5"> 5 Stars </option>
+								</select>
+								<textarea class="form-control" ng-model="reviewCtrl.review.body" required></textarea>
+								<label>by:</label>
+								<input class="form-control" type="email" ng-model="reviewCtrl.review.author" required />
+								<div> reviewForm is {{reviewForm.$valid}} </div>
+								<input class="form-control" type="submit" value="Submit" ng-disabled="!reviewForm.$valid" />
+							</form>
 						</div>
 					</section>
 					
