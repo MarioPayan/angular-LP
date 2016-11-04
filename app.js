@@ -41,6 +41,13 @@
 		};
 	});
 
+	app.directive('productTitle', function(){
+		return {
+			restrict: 'E',
+			templateUrl: 'product-title.html'
+		}
+	});
+
 	//Variables .. Variable unica
 	var gem = {
 		name: 'Dodecahedron',

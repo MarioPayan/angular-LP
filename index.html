@@ -23,8 +23,8 @@
 		-->
 
 		<!-- Define el controlador store como StoreController y crea el scope relacionado al mismo -->
-		<div ng-controller="StoreController as store">
-			<div class="list-group">
+		<div ng-controller="StoreController as store" class="row">
+			<div class="list-group col-md-4 columna">
 				<!-- Carga de un contenido segun el valor de verdad de ng-show negado -->
 				<!-- ng-repeat para cargar contenido de arreglo -->
 				
@@ -38,22 +38,24 @@
 				</select>
 
 				<select ng-model="orderreverse" ng-change="store.orderreverse(orderreverse)">
-					<option value="true"> Ascendente </option>
-					<option value="false" > Descendente </option>
+					<option value="false"> Ascendente </option>
+					<option value="true" > Descendente </option>
 				</select>
 				{{ orderby }}
 
 				<!-- Filtro orderBy para ordenar el arreglo segun un atributo ascendente o descendente (con un menos antes del atributo) -->
 				<div class="list-group-item" ng-show="!store.product.soldOut" ng-repeat="product in store.products | orderBy:store.order:store.reverse">
 					<!-- Consulta de variables de app accesibles por el scope -->
-					<h1> Product Name: Pokemon {{ product.name }} </h1>
+					<!-- <h2 ng-include="'product-title.html'"></h2> -->
+					<product-title></product-title>
+					
 					<!-- Filtro currency para factor moneda -->
-					<h2> Product Price: {{ product.price | currency }} </h2>
-					<p> Product Description: {{ product.description }} </p>
+					<em class="pull-right">{{ product.price | currency }}</em>
+					<p> {{ product.description }} </p>
 					<!-- Carga de una url de una imagen en app accesible por el scope -->
-					<p> <img ng-src="{{product.images[0].thumb}}" style="height: 250px;"> </p>
+					<p> <img class="img" ng-src="{{product.images[0].thumb}}" style="height: 250px;"> </p>
 					<!-- Carga de un contenido segun el valor de verdad de ng-show -->
-					<p> <button class="button" ng-show="store.product.canPurchase"> Add to cart </button> </p>
+					<p> <button class="form-control" ng-show="store.product.canPurchase"> Add to cart </button> </p>
 					<!-- ng-init inicializacion de una variable desde el html
 						<section ng-init="tab = 1">
 					-->
