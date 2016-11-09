@@ -1,12 +1,19 @@
 (function (){
 
 	//Modulos
-	var app = angular.module('store', []);
+	var app = angular.module('store', ['store-products']);
 
 	//Controlador
-	app.controller('StoreController', function(){
+	app.controller('StoreController',[ '$http', function($http){
 		this.product = gem;
-		this.products = gems;
+		var store = this;
+
+		$http.get('/products.json').success(function(data){
+
+			store.products = data;
+
+		});
+
 
 
 		this.order = "";
@@ -22,7 +29,7 @@
 		this.orderreverse = function(){
 			this.reverse = !this.reverse;
 		}
-	});
+	}]);
 
 	app.controller("PanelController", function(){
 		this.tab = 1;
@@ -41,12 +48,9 @@
 		};
 	});
 
-	app.directive('productTitle', function(){
-		return {
-			restrict: 'E',
-			templateUrl: 'product-title.html'
-		}
-	});
+
+
+	
 
 	//Variables .. Variable unica
 	var gem = {
@@ -59,7 +63,7 @@
 	};
 
 	//Variables .. Arrays
-	var gems = [
+	/*var gems = [
 		{
 			name: 'Fuego rojo',
 			price: 1.95,
@@ -160,6 +164,6 @@
 				}
 			]
 		}
-	];
+	];*/
 
 })();
