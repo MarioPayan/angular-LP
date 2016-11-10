@@ -24,7 +24,7 @@
 
 		<!-- Define el controlador store como StoreController y crea el scope relacionado al mismo -->
 		<div ng-controller="StoreController as store" class="row">
-			<div class="list-group col-md-4 columna">
+			<div class="list-group">
 				<!-- Carga de un contenido segun el valor de verdad de ng-show negado -->
 				<!-- ng-repeat para cargar contenido de arreglo -->
 				
@@ -50,19 +50,20 @@
 					
 					<!-- Como 'E'
 					<product-title></product-title> -->
-
-					<h3 product-title></h3>
-					
-					<!-- Filtro currency para factor moneda -->
-					<em class="pull-right">{{ product.price | currency }}</em>
-					<p> {{ product.description }} </p>
-					<!-- Carga de una url de una imagen en app accesible por el scope -->
-					<p> <img class="img" ng-src="{{product.images[0].thumb}}" style="height: 250px;"> </p>
-					<!-- Carga de un contenido segun el valor de verdad de ng-show -->
-					<p> <button class="form-control" ng-show="store.product.canPurchase"> Add to cart </button> </p>
-					<!-- ng-init inicializacion de una variable desde el html
-						<section ng-init="tab = 1">
-					-->
+					<div class="col-md-4">
+						<h3 product-title></h3>
+						
+						<!-- Filtro currency para factor moneda -->
+						<em class="pull-right">{{ product.price | currency }}</em>
+						<p> {{ product.description }} </p>
+						<!-- Carga de una url de una imagen en app accesible por el scope -->
+						<p> <img class="img" ng-src="{{product.images[0].thumb}}" style="height: 250px;"> </p>
+						<!-- Carga de un contenido segun el valor de verdad de ng-show -->
+						<p> <button class="form-control" ng-show="store.product.canPurchase"> Add to cart </button> </p>
+						<!-- ng-init inicializacion de una variable desde el html
+							<section ng-init="tab = 1">
+						-->
+					</div>
 					<section ng-controller="PanelController as panel">
 						<!-- Impresion de la variable tab en html
 							{{ tab }}
