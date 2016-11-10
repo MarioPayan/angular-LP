@@ -1,7 +1,7 @@
 (function (){
 
 	//Modulos
-	var app = angular.module('store', ['store-products']);
+	var app = angular.module('store', ['store-products', 'store-services', 'ngStorage']);
 
 	//Controlador
 	app.controller('StoreController',[ '$http', function($http){
