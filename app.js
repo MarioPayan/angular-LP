@@ -8,7 +8,7 @@
 		this.product = gem;
 		var store = this;
 
-		$http.get('/products.json').success(function(data){
+		$http.get('./data/products.json').success(function(data){
 
 			store.products = data;
 

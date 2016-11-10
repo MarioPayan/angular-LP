@@ -3,7 +3,7 @@
 	app.directive('productTitle', function(){
 			return {
 			restrict: 'A',
-			templateUrl: 'product-title.html'
+			templateUrl: 'src/products/product-title.html'
 		};
 	});
 
@@ -11,7 +11,7 @@
 	app.directive('productPanels', function(){
 		return {
 			restrict: 'E',
-			templateUrl: 'product-panels.html',
+			templateUrl: 'src/products/product-panels.html',
 			controller:function(){
 					this.tab=1;
 
