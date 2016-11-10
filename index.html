@@ -5,22 +5,6 @@
 		<link href="style.css" rel="stylesheet">
 	</head>
 	<body>
-		<!-- Interaccion con version reducida del interprete de JS
-			<p>{{"Hello" + " You"}}</p>
-			<p>I am {{4 + 6}}</p>
-		-->
-
-		<!-- Consulta de una variable de app accesible en el scope definido por el controlador store
-			Product Name: {{store.product.name}}
-		-->
-
-		<!-- Consulta de una variable dentro de un arreglo de app en el scope definido por el controlador store
-			<h1> Product Name: {{store.product[0].name}} </h1>
-		-->
-
-		<!-- Carga de una imagen sin ng-src
-			<p> <img src="{{product.img}}" style="height: 250px;"> </p>
-		-->
 
 		<!-- Define el controlador store como StoreController y crea el scope relacionado al mismo -->
 		<div ng-controller="StoreController as store" class="row">
@@ -28,7 +12,6 @@
 				<!-- Carga de un contenido segun el valor de verdad de ng-show negado -->
 				<!-- ng-repeat para cargar contenido de arreglo -->
 				
-
 				<button class="button" ng-click="store.orderBy('price')"> Order by price </button>
 				order {{ store.order }}
 
