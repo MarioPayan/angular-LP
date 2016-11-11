@@ -1,9 +1,16 @@
 (function(){
 	var app = angular.module('store-products', []);
-	app.directive('productTitle', function(){
+	app.directive('productTitle', function(localStorageHandler){
 			return {
 			restrict: 'A',
-			templateUrl: 'src/products/product-title.html'
+			templateUrl: 'src/products/product-title.html',
+
+			controller: function(){
+				this.addToCart = function(product){
+					localStorageHandler.setProduct(product);
+				};
+			},
+			controllerAs: "title"
 		};
 	});
 

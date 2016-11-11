@@ -24,6 +24,7 @@
 
 		<!-- Define el controlador store como StoreController y crea el scope relacionado al mismo -->
 		<div ng-controller="StoreController as store" class="row">
+			<p> Cantidad {{store.localStorageHandler.getProducts().length}}</p>
 			<div class="list-group col-md-4 columna">
 				<!-- Carga de un contenido segun el valor de verdad de ng-show negado -->
 				<!-- ng-repeat para cargar contenido de arreglo -->

@@ -13,6 +13,9 @@
 			},
 			removeProduct: function(index){
 				$localStorage.products.splice(index, 1);
+			},
+			getAmount: function(){
+				return $localStorage.products.length;
 			}
 		}
 	}]);

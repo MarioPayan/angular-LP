@@ -4,7 +4,7 @@
 	var app = angular.module('store', ['store-products', 'store-services', 'ngStorage']);
 
 	//Controlador
-	app.controller('StoreController',[ '$http', function($http){
+	app.controller('StoreController',[ '$http', 'localStorageHandler', function($http, localStorageHandler){
 		this.product = gem;
 		var store = this;
 
@@ -13,6 +13,8 @@
 			store.products = data;
 
 		});
+
+		store.localStorageHandler = localStorageHandler
 
 
 
