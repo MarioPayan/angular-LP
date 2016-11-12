@@ -1,17 +1,29 @@
 (function(){
 	var app = angular.module('store-products', []);
 	app.directive('productTitle', function(){
-			return {
+		return {
 			restrict: 'A',
-			templateUrl: 'product-title.html'
+			templateUrl: 'src/products/product-title.html'
 		};
 	});
 
 	app.directive('productGallery', function(){});
+	app.directive('productOptions', function(localStorageHandler) {
+	    return {
+			restrict: 'E',
+			templateUrl: 'src/products/product-options.html',
+			controller: function(){
+				this.addToCart = function(product){
+					localStorageHandler.setProduct(product);
+				};
+			},
+			controllerAs: "options"
+	    };
+	});
 	app.directive('productPanels', function(){
 		return {
 			restrict: 'E',
-			templateUrl: 'product-panels.html',
+			templateUrl: 'src/products/product-panels.html',
 			controller:function(){
 					this.tab=1;
 

@@ -1,0 +1,24 @@
+{
+  "name": "angular-lp",
+  "version": "1.0.0",
+  "description": "",
+  "main": "angular.min.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/MarioPayan/angular-LP.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/MarioPayan/angular-LP/issues"
+  },
+  "homepage": "https://github.com/MarioPayan/angular-LP#readme",
+  "dependencies": {
+    "angular": "^1.5.8",
+    "bootstrap": "^3.3.7",
+    "ngstorage": "^0.3.11"
+  }
+}
