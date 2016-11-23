@@ -6,43 +6,12 @@
 	</head>
 	<body>
 
-		<div ng-controller="StoreController as store" style="padding-left:5%; padding-right:5%; padding-top:20px;">
-			<div class="list-group">
-				
-				<div class="form-inline">
-					<label>Order by:</label>
-					<select class="form-control" ng-model="orderBy" ng-init="orderBy='price'" ng-change="store.orderBy(orderBy)">
-						<option value="name"> Name </option>
-						<option value="price"> Price </option>
-					</select>
-					<label> - </label>
-					<select class="form-control" ng-model="orderReverse" ng-init="orderReverse='true'" ng-change="store.orderReverse(orderReverse)">
-						<option value="false"> Upward </option>
-						<option value="true" > Downward </option>
-					</select>
-					
-				</div>
-				<label>Items in cart {{store.storage.getProducts().length}}</label>
-
-				<div class="list-group-item row"
-								ng-show="!store.product.soldOut"
-								ng-repeat="product in store.products | orderBy:store.order:store.reverse"
-								>
-					<h3 product-title></h3>
-					<div class="col-md-5">
-						<p> <img class="img img-responsive" ng-src="{{product.images[0].thumb}}" style="width: 300px"> </p>
-						<p>Valor por unidad <em class="pull-right">{{ product.price | currency }}</em> </p>
-						<product-options></product-options>
-					</div>
-					<div class="col-md-7">
-						<product-panels></product-panels>
-					</div>
-				</div>
-			</div>
-		</div>
+		<ng-view></ng-view>
 
 		<script type="text/javascript" src="node_modules/angular/angular.min.js"></script>
+		<script type="text/javascript" src="node_modules/angular-route/angular-route.min.js"></script>
 		<script type="text/javascript" src="node_modules/ngstorage/ngStorage.min.js"></script>
+		
 		<script type="text/javascript" src="app.js"></script>
 		<script type="text/javascript" src="src/services/services.js"></script>
 		<script type="text/javascript" src="src/products/products.js"></script>

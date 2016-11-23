@@ -1,12 +1,24 @@
 (function (){
 
-	var app = angular.module('store', ['store-products', 'store-services', 'ngStorage']);
+	var app = angular.module('store', ['store-products', 'store-services', 'ngRoute', 'ngStorage']);
 
-	app.controller('StoreController',['localStorageHandler', 'dataStorage',function(localStorageHandler, dataStorage){
+	app.config(['$routeProvider', function config($routeProvider){
+		$routeProvider.when('/', {templateUrl: 'src/templates/dashboard.html', controller:'StoreController'});
+		$routeProvider.when('/product/:id', {templateUrl:'src/templates/detail.html', controller:'StoreController'});
+		$routeProvider.otherwise('/');
+	}]);
+
+	app.controller('StoreController',['localStorageHandler', 'dataStorage', '$scope', '$routeParams', '$location', function(localStorageHandler, dataStorage, $scope, $routeParams, $location){
 		
 		var store = this;
 		this.product = [];
 
+		$scope.test = 'hola mundo';
+		console.log($routeParams['id']);
+
+		$scope.goDashboard = function(){
+			$location.path('/');
+		}
 		
 		dataStorage.getData().then(function(promise){
 			store.products = promise.data;
