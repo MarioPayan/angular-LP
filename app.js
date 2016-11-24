@@ -3,22 +3,63 @@
 	var app = angular.module('store', ['store-products', 'store-services', 'ngRoute', 'ngStorage']);
 
 	app.config(['$routeProvider', function config($routeProvider){
-		$routeProvider.when('/', {templateUrl: 'src/templates/dashboard.html', controller:'StoreController'});
-		$routeProvider.when('/product/:id', {templateUrl:'src/templates/detail.html', controller:'StoreController'});
+		$routeProvider.when('/', {templateUrl: 'src/templates/dashboard.html', controller:'StoreController', controllerAs: 'store'});
+		$routeProvider.when('/product/:id', {templateUrl:'src/templates/detail.html', controller:'DetailController'});
 		$routeProvider.otherwise('/');
 	}]);
 
-	app.controller('StoreController',['localStorageHandler', 'dataStorage', '$scope', '$routeParams', '$location', function(localStorageHandler, dataStorage, $scope, $routeParams, $location){
-		
-		var store = this;
-		this.product = [];
+	app.constant('configTmdb', {
+		apiUri: 'https://api.themoviedb.org/3/',
+		apiKey: '518d83af872f927b98cfe36a90cd05b0'
+	});
 
-		$scope.test = 'hola mundo';
+	app.controller('DetailController',['localStorageHandler', 'dataStorage', '$scope', '$routeParams', '$location', 'tmdb', '$timeout' ,function(localStorageHandler, dataStorage, $scope, $routeParams, $location, tmdb, $timeout){
+		$scope.test = 'k ase';
 		console.log($routeParams['id']);
+
+		var timemeOutSearch = '';
+
+
+		$scope.$watch('test' ,function(newSearch, oldSearch){
+			if(timemeOutSearch){
+				$timeout.cancel(timemeOutSearch);
+			}
+			timemeOutSearch = $timeout(function(){
+				$scope.executeSearch();
+			}, 1500)
+		});
+
+		$scope.executeSearch = function() {
+			console.log('ejecutando busqueda');
+			console.log($scope.test);
+		}
 
 		$scope.goDashboard = function(){
 			$location.path('/');
+		};
+
+		$scope.getPopularMovies = function(){
+			var moviesPopular = tmdb.getPopularMovies('movie/popular', '&language=en-US');
+			moviesPopular.then(function(data){
+				$scope.moviesPopular = data.data;
+				console.log(data.data);
+			}, function(error){
+				alert(error.statusText);
+			});
 		}
+
+		$scope.getAllMovies = function(){
+			var getAll = tmdb.getAllMovies();
+			getAll.then(function(data){
+				console.log(data);
+			})
+		}
+	}]);
+
+	app.controller('StoreController',['localStorageHandler', 'dataStorage', function(localStorageHandler, dataStorage){
+		
+		var store = this;
+		this.product = [];
 		
 		dataStorage.getData().then(function(promise){
 			store.products = promise.data;

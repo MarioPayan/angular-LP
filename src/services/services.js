@@ -19,15 +19,33 @@
 			}
 		}
 	}]);
+
+	app.service('tmdb',['$http', 'configTmdb', '$q', function($http, configTmdb, $q){
+		return{
+			getPopularMovies: function(uri, params){
+				return $http.get(configTmdb.apiUri+uri+'?api_key='+configTmdb.apiKey+params);
+			},
+			getAllMovies: function(){
+				var defer = $q.defer();
+				var endpoints = ['movie/popular', 'genre/tv/list', 'genre/movie/list']
+
+				var promises = endpoints.map(function(uri){
+					return $http.get(configTmdb.apiUri+uri+'?api_key='+configTmdb.apiKey+'&language=en-US');
+				});
+
+				return $q.all(promises);
+
+				defer.resolve({message: 'ok'});
+				defer.reject({message:'not ok'});
+				return defer.promise;
+			}
+		}
+	}]);
 	
 	app.service('dataStorage',['$http', function($http){
 		return{
 			getData: function(){
-				return $http.get('./data/products.json').then(function(data){
-					return data;
-				}, function(err){
-					return [];
-				});
+				return $http.get('./data/products.json');
 			}
 		}
 	}]);
